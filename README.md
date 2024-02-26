@@ -37,6 +37,8 @@ submission_time = Variable()
 submission_block_num = Variable()
 random_number = Variable()
 
+currency_balances = ForeignHash(foreign_contract='currency', foreign_name='balances') # ForeignHash is a way to get a read-only view of a hash from another contract
+
 @construct
 def seed():
     # Initialize the contract with a variable
@@ -102,6 +104,18 @@ def interact_with_other_contract(contract: str, args: dict):
 
     # Interact with another contract
     c.do_something(**args)
+
+@export
+def get_contract_name():
+    return ctx.this
+
+@export
+def who_am_i():
+    return ctx.caller
+
+@export
+def get_top_level_signer():
+    return ctx.signer # First signer in the call chain
 ```
 
 ## Documentation
