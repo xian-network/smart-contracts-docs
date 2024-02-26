@@ -41,7 +41,7 @@ random_number = Variable()
 currency_balances = ForeignHash(foreign_contract='currency', foreign_name='balances') # ForeignHash is a way to get a read-only view of a hash from another contract
 foundation_owner = ForeignVariable(foreign_contract='foundation', foreign_name='owner') # ForeignVariable is a way to get a read-only view of a variable from another contract
 
-@construct
+@construct # The construct decorator is used to define initialization logic for the contract
 def seed():
     # Initialize the contract with a variable
     simple_var.set(0)
@@ -50,11 +50,11 @@ def seed():
     submission_block_num.set(block_num) # block_num is a built-in function that returns the current block number
     submission_block_hash.set(block_hash) # block_hash is a built-in function that returns the current block hash
 
-def private_function():
+def private_function(): # This function is private and cannot be called from outside the contract
     # This function is private and cannot be called from outside the contract
     return "This is a private function"
 
-@export
+@export # The export decorator is used to define functions that can be called from outside the contract
 def call_private_function():
     # Call the private function
     return private_function()
