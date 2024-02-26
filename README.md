@@ -108,6 +108,11 @@ def interact_with_other_contract(contract: str, args: dict):
     # Interact with another contract
     c.do_something(**args)
 
+@export 
+def is_older_than_date(date: datetime.datetime):
+    # Check if the submission time is older than a specific date
+    return submission_time.get() < date
+
 @export
 def get_contract_name():
     return ctx.this
