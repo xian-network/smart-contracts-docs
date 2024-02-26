@@ -35,6 +35,7 @@ simple_var = Variable()
 storage = Hash(default_value=0)
 submission_time = Variable()
 submission_block_num = Variable()
+submission_block_hash = Variable()
 random_number = Variable()
 
 currency_balances = ForeignHash(foreign_contract='currency', foreign_name='balances') # ForeignHash is a way to get a read-only view of a hash from another contract
@@ -46,6 +47,7 @@ def seed():
     submission_time.set(now) # now is a built-in function that returns the current datetime
     random_number.set(random.randint(0, 100))
     submission_block_num.set(block_num) # block_num is a built-in function that returns the current block number
+    submission_block_hash.set(block_hash) # block_hash is a built-in function that returns the current block hash
 
 def private_function():
     # This function is private and cannot be called from outside the contract
@@ -96,9 +98,9 @@ def interact_with_other_contract(contract: str, args: dict):
     c = importlib.import_module(contract) # Import another contract
 
     forced_interface = [
-        importlib.Func('do_something', args=('amount', 'to')),
-        importlib.Var('balances', Hash)
-    ]
+        importlib.Func('do_something', args=('amount', 'to')), # Func is a way to enforce the existence of a function with specific arguments
+        importlib.Var('balances', Hash) # Var is a way to enforce the existence of a variable with a specific type
+    ] 
 
     assert importlib.enforce_interface(c, forced_interface) # Enforce the interface of the other contract
 
@@ -111,11 +113,11 @@ def get_contract_name():
 
 @export
 def who_am_i():
-    return ctx.caller
+    return ctx.caller # The actual caller that called this function. Could be a contract or an account
 
 @export
 def get_top_level_signer():
-    return ctx.signer # First signer in the call chain
+    return ctx.signer # First signer in the call chain (the original signer). This is the account that initiated the transaction even if the transaction was forwarded by another contract
 ```
 
 ## Documentation
