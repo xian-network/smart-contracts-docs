@@ -34,6 +34,7 @@ random.seed()
 simple_var = Variable()
 storage = Hash(default_value=0)
 submission_time = Variable()
+submission_block_num = Variable()
 random_number = Variable()
 
 @construct
@@ -42,6 +43,7 @@ def seed():
     simple_var.set(0)
     submission_time.set(now) # now is a built-in function that returns the current datetime
     random_number.set(random.randint(0, 100))
+    submission_block_num.set(block_num) # block_num is a built-in function that returns the current block number
 
 def private_function():
     # This function is private and cannot be called from outside the contract
