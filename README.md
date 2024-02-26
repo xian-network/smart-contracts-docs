@@ -29,7 +29,7 @@ Contracting simplifies the process of creating, testing, and deploying smart con
 ### Reference Contract
 
 ```python
-random.seed()
+random.seed() # Seed the random number generator
 
 simple_var = Variable() # Variable is a way to define a state variable in the contract
 storage = Hash(default_value=0) # Hash is a way to define a key-value store in the contract
@@ -45,10 +45,10 @@ foundation_owner = ForeignVariable(foreign_contract='foundation', foreign_name='
 def seed():
     # Initialize the contract with a variable
     simple_var.set(0)
-    submission_time.set(now) # now is a built-in function that returns the current datetime
+    submission_time.set(now) # now is a built-in variable that returns the current datetime
     random_number.set(random.randint(0, 100))
-    submission_block_num.set(block_num) # block_num is a built-in function that returns the current block number
-    submission_block_hash.set(block_hash) # block_hash is a built-in function that returns the current block hash
+    submission_block_num.set(block_num) # block_num is a built-in variable that returns the current block number
+    submission_block_hash.set(block_hash) # block_hash is a built-in variable that returns the current block hash
 
 def private_function(): # This function is private and cannot be called from outside the contract
     # This function is private and cannot be called from outside the contract
