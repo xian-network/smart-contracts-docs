@@ -31,8 +31,8 @@ Contracting simplifies the process of creating, testing, and deploying smart con
 ```python
 random.seed()
 
-simple_var = Variable()
-storage = Hash(default_value=0)
+simple_var = Variable() # Variable is a way to define a state variable in the contract
+storage = Hash(default_value=0) # Hash is a way to define a key-value store in the contract
 submission_time = Variable()
 submission_block_num = Variable()
 submission_block_hash = Variable()
