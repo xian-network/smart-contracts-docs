@@ -39,6 +39,7 @@ submission_block_hash = Variable()
 random_number = Variable()
 
 currency_balances = ForeignHash(foreign_contract='currency', foreign_name='balances') # ForeignHash is a way to get a read-only view of a hash from another contract
+foundation_owner = ForeignVariable(foreign_contract='foundation', foreign_name='owner') # ForeignVariable is a way to get a read-only view of a variable from another contract
 
 @construct
 def seed():
@@ -95,7 +96,7 @@ def get_nested_storage_pair(key: str, nested_key: str):
 
 @export
 def interact_with_other_contract(contract: str, args: dict):
-    c = importlib.import_module(contract) # Import another contract
+    c = importlib.import_module(contract) # Import another contract dynamically
 
     forced_interface = [
         importlib.Func('do_something', args=('amount', 'to')), # Func is a way to enforce the existence of a function with specific arguments
