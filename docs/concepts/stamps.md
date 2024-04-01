@@ -1,6 +1,6 @@
 ## Stamps
 
-A stamp is a single unit of computational work in a smart contract. Stamps are converted from cryptocurrency on the main Lamden network. This is what enforces rate limiting and incentivizes the development of the network.
+A stamp is a single unit of computational work in a smart contract. Stamps are paid for with Xian. This is what enforces rate limiting and incentivizes the development of the network.
 
 To calculate work, the code is ran through an optimized tracer. Each Python VM opcode has a specific cost. Each step of the code deducts from the number of stamps attached to the transaction.
 
