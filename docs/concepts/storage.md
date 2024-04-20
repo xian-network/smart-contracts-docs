@@ -13,11 +13,11 @@ def seed():
 
 When submitted will create the following in state space:
 
-Key	|	Value
--	| -
-contract.\_\_compiled\_\_ | Python Bytecode
-contract.\_\_code\_\_ | Python Code
-contract.owner | ctx.caller at submission time
+| Key                     | Value                              |
+|-------------------------|------------------------------------|
+| `contract.__compiled__` | Python Bytecode                    |
+| `contract.__code__`     | Python Code                        |
+| `contract.owner`        | `ctx.caller` at submission time    |
 
 Storage follows a simple pattern such that each variable or hash stored is prefaced by the contract name and a period delimiter. If the variable has additional keys, they are appended to the end seperated by colons.
 
@@ -199,11 +199,11 @@ def some_contract():
 	balances.set('tejas', 777)
 ```
 
-Key	|	Value
--	| -
-some_contract.balances:stu | 1,000,000
-some_contract.balances:raghu | 100
-some_contract.balances:tejas | 777
+| Key                           | Value     |
+|-------------------------------|-----------|
+| `some_contract.balances:stu`  | 1,000,000 |
+| `some_contract.balances:raghu`| 100       |
+| `some_contract.balances:tejas`| 777       |
 
 #### Multihashes
 
@@ -220,12 +220,12 @@ def subaccounts():
 
 This will create the following state space:
 
-Key	|	Value
--	| -
-subaccounts.balances:stu | 1,000,000
-subaccounts.balances:stu:raghu | 1,000
-subaccounts.balances:raghu:stu | 555
-subaccounts.balances:stu:raghu:tejas | 777
+| Key                                  | Value     |
+|--------------------------------------|-----------|
+| `subaccounts.balances:stu`           | 1,000,000 |
+| `subaccounts.balances:stu:raghu`     | 1,000     |
+| `subaccounts.balances:raghu:stu`     | 555       |
+| `subaccounts.balances:stu:raghu:tejas` | 777     |
 
 #### get(self, key)
 
@@ -340,14 +340,15 @@ def subaccounts():
 
 Returns all of the values in a particular hash. For multihashes, it returns all values in that 'subset' of hashes. Assume the following state space:
 
-Key	|	Value
--	| -
-subaccounts.balances:stu | 1,000,000
-subaccounts.balances:stu:raghu | 1,000
-subaccounts.balances:stu:tejas | 555
-subaccounts.balances:raghu | 777
-subaccounts.balances:raghu:stu | 10_000
-subaccounts.balances:raghu:tejas | 100_000
+| Key                              | Value     |
+|----------------------------------|-----------|
+| `subaccounts.balances:stu`       | 1,000,000 |
+| `subaccounts.balances:stu:raghu` | 1,000     |
+| `subaccounts.balances:stu:tejas` | 555       |
+| `subaccounts.balances:raghu`     | 777       |
+| `subaccounts.balances:raghu:stu` | 10,000    |
+| `subaccounts.balances:raghu:tejas` | 100,000  |
+
 
 ```python
 balances.all()
@@ -361,14 +362,15 @@ balances.all('raghu')
 
 Clears an entire hash or a section of a hash if the list of keys are provided. Assume the same state space:
 
-Key	|	Value
--	| -
-subaccounts.balances:stu | 1,000,000
-subaccounts.balances:stu:raghu | 1,000
-subaccounts.balances:stu:tejas | 555
-subaccounts.balances:raghu | 777
-subaccounts.balances:raghu:stu | 10_000
-subaccounts.balances:raghu:tejas | 100_000
+| Key                                | Value     |
+|------------------------------------|-----------|
+| `subaccounts.balances:stu`         | 1,000,000 |
+| `subaccounts.balances:stu:raghu`   | 1,000     |
+| `subaccounts.balances:stu:tejas`   | 555       |
+| `subaccounts.balances:raghu`       | 777       |
+| `subaccounts.balances:raghu:stu`   | 10,000    |
+| `subaccounts.balances:raghu:tejas` | 100,000   |
+
 
 ```python
 balances.clear('stu')
