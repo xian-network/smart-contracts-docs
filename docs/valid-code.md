@@ -30,147 +30,79 @@ Certain builtins such as `exec`, `eval`, and `compile` are obviously dangerous. 
 
 Here is a list of most Python3.11 builtin functions versus the ones we allow in Contracting. NOTE: All exceptions except the base Exception class are removed from Contracting.
 
-Built-Ins | Python3.11 | Contracting | Reason for Restriction
+| Built-Ins    | Python3.11 | Contracting | Reason for Restriction                                                                                   |
+|--------------|------------|-------------|---------------------------------------------------------------------------------------------------------|
+| `abs()`      | ✓          | ✓           |                                                                                                         |
+| `all()`      | ✓          | ✓           |                                                                                                         |
+| `any()`      | ✓          | ✓           |                                                                                                         |
+| `ascii()`    | ✓          | ✓           |                                                                                                         |
+| `bin()`      | ✓          | ✓           |                                                                                                         |
+| `bool()`     | ✓          | ✓           |                                                                                                         |
+| `bytearray()`| ✓          | ✓           |                                                                                                         |
+| `bytes()`    | ✓          | ✓           |                                                                                                         |
+| `callable()` | ✓          | ✘           | Functions are not passed as objects in Contracting.                                                     |
+| `chr()`      | ✓          | ✓           |                                                                                                         |
+| `classmethod()`| ✓        | ✘           | Classes are disabled in Contracting.                                                                    |
+| `compile()`  | ✓          | ✘           | Arbitrary code execution is a high security risk.                                                       |
+| `complex()`  | ✓          | ✘           | Complex numbers are potentially non-deterministic. This is a consensus failure risk.                    |
+| `copyright`  | ✓          | ✘           | Unnecessary.                                                                                            |
+| `credits`    | ✓          | ✘           | Unnecessary.                                                                                            |
+| `delattr()`  | ✓          | ✘           | Arbitrary removal of Python attributes could allow unauthorized access to private objects and methods.  |
+| `dict()`     | ✓          | ✓           |                                                                                                         |
+| `dir()`      | ✓          | ✘           | Allows exploration path into security exploit development.                                              |
+| `divmod()`   | ✓          | ✓           |                                                                                                         |
+| `enumerate()`| ✓          | ✘           | Potentially safe. Evaluating to make sure.                                                              |
+| `eval()`     | ✓          | ✘           | Arbitrary code execution is a high security risk.                                                       |
+| `exec()`     | ✓          | ✘           | Arbitrary code execution is a high security risk.                                                       |
+| `filter()`   | ✓          | ✓           |                                                                                                         |
+| `float()`    | ✓          | ✘           | Floating point precision issues can lead to consensus failures.                                         |
+| `format()`      | ✓          | ✓           |                                                                                                         |
+| `frozenset()`   | ✓          | ✓           |                                                                                                         |
+| `getattr()`     | ✓          | ✘           | Arbitrary access to attributes could allow private function execution.                                  |
+| `globals()`     | ✓          | ✘           | Access to global scope methods allows modification of private methods and direct storage mechanisms.    |
+| `hasattr()`     | ✓          | ✘           | Allows exploration path into security exploit development.                                              |
+| `hash()`        | ✓          | ✘           | Potentially non-deterministic outcomes. Consensus failure risk.                                         |
+| `help()`        | ✓          | ✘           | Unnecessary.                                                                                            |
+| `hex()`         | ✓          | ✓           |                                                                                                         |
+| `id()`          | ✓          | ✘           | Potentially non-deterministic outcomes. Consensus failure risk.                                         |
+| `input()`       | ✓          | ✘           | User input not supported.                                                                               |
+| `int()`         | ✓          | ✓           |                                                                                                         |
+| `isinstance()`  | ✓          | ✓           |                                                                                                         |
+| `issubclass()`  | ✓          | ✓           |                                                                                                         |
+| `iter()`        | ✓          | ✘           | Potential mutation of objects that are only supposed to be interfaced with through particular methods. |
+| `len()`         | ✓          | ✓           |                                                                                                         |
+| `license`       | ✓          | ✘           | Unnecessary.                                                                                            |
+| `list()`        | ✓          | ✓           |                                                                                                         |
+| `locals()`      | ✓          | ✘           | See globals()                                                                                           |
+| `map()`         | ✓          | ✓           |                                                                                                         |
+| `max()`         | ✓          | ✓           |                                                                                                         |
+| `memoryview()`  | ✓          | ✘           | Potentially non-deterministic outcomes. Consensus failure risk.                                         |
+| `min()`         | ✓          | ✓           |                                                                                                         |
+| `next()`        | ✓          | ✘           | See iter()                                                                                              |
+| `object()`      | ✓          | ✘           | See callable()                                                                                          |
+| `oct()`         | ✓          | ✓           |                                                                                                         |
+| `open()`        | ✓          | ✘           | File I/O not supported.                                                                                 |
+| `ord()`         | ✓          | ✓           |                                                                                                         |
+| `pow()`         | ✓          | ✓           |                                                                                                         |
+| `print()`       | ✓          | ✓           |                                                                                                         |
+| `property()`    | ✓          | ✘           | Property creation not supported because classes are disabled.                                           |
+| `range()`       | ✓          | ✓           |                                                                                                         |
+| `repr()`        | ✓          | ✘           | Unnecessary and non-deterministic due to memory address as output of this function. This is a consensus failure risk. |
+| `reversed()`    | ✓          | ✓           |                                                                                                         |
+| `round()`       | ✓          | ✓           |                                                                                                         |
+| `set()`         | ✓          | ✓           |                                                                                                         |
+| `setattr()`     | ✓          | ✘           | Arbitrary setting and overwriting of Python attributes has storage corruption and private method access implications. |
+| `slice()`       | ✓          | ✘           | Unnecessary.                                                                                            |
+| `sorted()`      | ✓          | ✓           |                                                                                                         |
+| `staticmethod()`| ✓          | ✘           | Static methods are not supported because classes are disabled.                                          |
+| `str()`         | ✓          | ✓           |                                                                                                         |
+| `sum()`         | ✓          | ✓           |                                                                                                         |
+| `super()`       | ✓          | ✘           | Super is not supported because classes are disabled.                                                    |
+| `tuple()`       | ✓          | ✓           |                                                                                                         |
+| `type()`        | ✓          | ✓           |                                                                                                         |
+| `vars()`        | ✓          | ✘           | Allows exploration path into security exploit development.                                              |
+| `zip()`         | ✓          | ✓           |                                                                                                         |
 
-[abs()](https://docs.python.org/3/library/functions.html#abs) | ✓ | ✓ |
-
-[all()](https://docs.python.org/3/library/functions.html#all) | ✓ | ✓ |
-
-[any()](https://docs.python.org/3/library/functions.html#any) | ✓ | ✓ |
-
-[ascii()](https://docs.python.org/3/library/functions.html#ascii) | ✓ | ✓ |
-
-[bin()](https://docs.python.org/3/library/functions.html#bin) | ✓ | ✓ |
-
-[bool()](https://docs.python.org/3/library/functions.html#bool) | ✓ | ✓ |
-
-[bytearray()](https://docs.python.org/3/library/functions.html#func-bytearray) | ✓ | ✓ |
-
-[bytes()](https://docs.python.org/3/library/functions.html#func-bytes) | ✓ | ✓ |
-
-[callable()](https://docs.python.org/3/library/functions.html#callable) | ✓ | ✘ | Functions are not passed as objects in Contracting.
-
-[chr()](https://docs.python.org/3/library/functions.html#chr) | ✓ | ✓ |
-
-[classmethod()](https://docs.python.org/3/library/functions.html#classmethod)  | ✓ | ✘ | Classes are disabled in Contracting.
-
-[compile()](https://docs.python.org/3/library/functions.html#compile) | ✓ | ✘ | Arbitrary code execution is a high security risk.
-
-[complex()](https://docs.python.org/3/library/functions.html#complex) | ✓ | ✘ | Complex numbers are potentially non-deterministic. This is a consensus failure risk.
-
-[copyright](https://docs.python.org/3/library/constants.html#copyright) | ✓ | ✘ | Unnecessary.
-
-[credits](https://docs.python.org/3/library/constants.html#credits) | ✓ | ✘ | Unnecessary.
-
-[delattr()](https://docs.python.org/3/library/functions.html#delattr) | ✓ | ✘ | Arbitrary removal of Python attributes could allow unauthorized access to private objects and methods.
-
-[dict()](https://docs.python.org/3/library/functions.html#func-dict) | ✓ | ✓ |
-
-[dir()](https://docs.python.org/3/library/functions.html#dir) | ✓ | ✘ | Allows exploration path into security exploit development.
-
-[divmod()](https://docs.python.org/3/library/functions.html#divmod) | ✓ | ✓ |
-
-[enumerate()](https://docs.python.org/3/library/functions.html#enumerate) | ✓ | ✘ | Potentially safe. Evaluating to make sure.
-
-[eval()](https://docs.python.org/3/library/functions.html#eval) | ✓ | ✘ | Arbitrary code execution is a high security risk.
-
-[exec()](https://docs.python.org/3/library/functions.html#exec) | ✓ | ✘ | Arbitrary code execution is a high security risk.
-
-[filter()](https://docs.python.org/3/library/functions.html#filter) | ✓ | ✓ |
-
-[float()](https://docs.python.org/3/library/functions.html#float) | ✓ | ✘ | Floating point precision is non-deterministic. This is a consensus failure risk.
-
-[format()](https://docs.python.org/3/library/functions.html#format) | ✓ | ✓ |
-
-[frozenset()](https://docs.python.org/3/library/functions.html#func-frozenset) | ✓ | ✓ |
-
-[getattr()](https://docs.python.org/3/library/functions.html#getattr) | ✓ | ✘ | Arbitrary access to attributes could allow private function execution.
-
-[globals()](https://docs.python.org/3/library/functions.html#globals) | ✓ | ✘ | Access to global scope methods allows modification of private methods and direct storage mechanisms.
-
-[hasattr()](https://docs.python.org/3/library/functions.html#hasattr) | ✓ | ✘ | Allows exploration path into security exploit development.
-
-[hash()](https://docs.python.org/3/library/functions.html#hash) | ✓ | ✘ | Potentially non-deterministic outcomes. Consensus failure risk.
-
-[help()](https://docs.python.org/3/library/functions.html#help) | ✓ | ✘ | Unnecessary.
-
-[hex()](https://docs.python.org/3/library/functions.html#hex) | ✓ | ✓ |
-
-[id()](https://docs.python.org/3/library/functions.html#id) | ✓ | ✘ | Potentially non-deterministic outcomes. Consensus failure risk.
-
-[input()](https://docs.python.org/3/library/functions.html#input) | ✓ | ✘ | User input not supported.
-
-[int()](https://docs.python.org/3/library/functions.html#int) | ✓ | ✓ |
-
-[isinstance()](https://docs.python.org/3/library/functions.html#isinstance) | ✓ | ✓ |
-
-[issubclass()](https://docs.python.org/3/library/functions.html#issubclass) | ✓ | ✓ |
-
-[iter()](https://docs.python.org/3/library/functions.html#iter) | ✓ | ✘ | Potential mutation of objects that are only supposed to be interfaced with through particular methods.
-
-[len()](https://docs.python.org/3/library/functions.html#len) | ✓ | ✓ |
-
-[license](https://docs.python.org/3/library/constants.html#license) | ✓ | ✘ | Unnecessary.
-
-[list()](https://docs.python.org/3/library/functions.html#func-list) | ✓ | ✓ |
-
-[locals()](https://docs.python.org/3/library/functions.html#locals) | ✓ | ✘ | See globals()
-
-[map()](https://docs.python.org/3/library/functions.html#map) | ✓ | ✓ |
-
-[max()](https://docs.python.org/3/library/functions.html#max) | ✓ | ✓ |
-
-[memoryview()](https://docs.python.org/3/library/functions.html#func-memoryview) | ✓ | ✘ | Potentially non-deterministic outcomes. Consensus failure risk.
-
-[min()](https://docs.python.org/3/library/functions.html#min) | ✓ | ✓
-
-[next()](https://docs.python.org/3/library/functions.html#next) | ✓ | ✘ | See iter()
-
-[object()](https://docs.python.org/3/library/functions.html#object) | ✓ | ✘ | See callable()
-
-[oct()](https://docs.python.org/3/library/functions.html#oct) | ✓ | ✓ |
-
-[open()](https://docs.python.org/3/library/functions.html#open) | ✓ | ✘ | File I/O not supported.
-
-[ord()](https://docs.python.org/3/library/functions.html#ord) | ✓ | ✓ |
-
-[pow()](https://docs.python.org/3/library/functions.html#pow) | ✓ | ✓ |
-
-[print()](https://docs.python.org/3/library/functions.html#print) | ✓ | ✓ |
-
-[property()](https://docs.python.org/3/library/functions.html#property) | ✓ | ✘ | Property creation not supported because classes are disabled.
-
-[range()](https://docs.python.org/3/library/functions.html#func-range) | ✓ | ✓ |
-
-[repr()](https://docs.python.org/3/library/functions.html#repr) | ✓ | ✘ | Unnecessary and non-deterministic due to memory address as output of this function. This is a consensus failure risk.
-
-[reversed()](https://docs.python.org/3/library/functions.html#reversed) | ✓ | ✓
-
-[round()](https://docs.python.org/3/library/functions.html#round) | ✓ | ✓
-
-[set()](https://docs.python.org/3/library/functions.html#func-set) | ✓ | ✓
-
-[setattr()](https://docs.python.org/3/library/functions.html#setattr) | ✓ | ✘ | Arbitrary setting and overwriting of Python attributes has storage corruption and private method access implications.
-
-[slice()](https://docs.python.org/3/library/functions.html#slice) | ✓ | ✘ | Unnecessary.
-
-[sorted()](https://docs.python.org/3/library/functions.html#sorted) | ✓ | ✓
-
-[staticmethod()](https://docs.python.org/3/library/functions.html#staticmethod) | ✓ | ✘ | Static methods are not supported because classes are disabled.
-
-[str()](https://docs.python.org/3/library/functions.html#func-str) | ✓ | ✓
-
-[sum()](https://docs.python.org/3/library/functions.html#sum) | ✓ | ✓
-
-[super()](https://docs.python.org/3/library/functions.html#super) | ✓ | ✘ | Super is not supported because classes are disabled
-
-[tuple()](https://docs.python.org/3/library/functions.html#func-tuple) | ✓ | ✓
-
-[type()](https://docs.python.org/3/library/functions.html#type) | ✓ | ✓
-
-[vars()](https://docs.python.org/3/library/functions.html#vars) | ✓ | ✘ | Allows exploration path into security exploit development.
-
-[zip()](https://docs.python.org/3/library/functions.html#zip) | ✓ | ✓
 
 ## Illegal AST Nodes
 
