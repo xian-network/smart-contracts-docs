@@ -11,13 +11,14 @@ If you do not know Python, try one of these resources:
 
 Let's define what a smart contract is, and what one isn't.
 
-A smart contract is: 						| A smart contract isn't:
--					 						| -
-Immutable			 						| A full application
-Open-Sourced								| A database
-Accessible through strict API 				| Able to act without interaction
-A set of rules enforced by consensus 		| Able to draw data from the web arbitrarily
-A function of it's inputs
+| A smart contract is:                                | A smart contract isn't:              |
+|-----------------------------------------------------|--------------------------------------|
+| Immutable                                           | A full application                   |
+| Open-Sourced                                        | A database                           |
+| Accessible through strict API                       | Able to act without interaction      |
+| A set of rules enforced by consensus                | Able to draw data from the web arbitrarily |
+| A function of its inputs                            |                                      |
+
 
 Therefore, we have to make some considerations and alterations to what is allowed in a smart contract. We do not add any additional features to Python that make the code incompatible. Contracting is a strict subset.
 
