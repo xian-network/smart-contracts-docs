@@ -8,7 +8,7 @@ owner = Variable()
 
 @construct
 def seed():
-	owner.set(ctx.caller)
+    owner.set(ctx.caller)
 ```
 
 When submitted will create the following in state space:
@@ -64,11 +64,11 @@ balances = Hash()
 
 @export
 def example():
-	owner.set('hello')
-	a = owner.get()
+    owner.set('hello')
+    a = owner.get()
 
-	balances['stu'] = 100
-	a = balances['something']
+    balances['stu'] = 100
+    a = balances['something']
 ```
 
 ### Variable API
@@ -86,9 +86,9 @@ class Variable(Datum):
 #### \_\_init\_\_(self, contract, name, driver, t)
 The \_\_init\_\_ arguments are automatically filled in for you during compilation and runtime. You do not have to provide any of them.
 
+some_contract
 ```python
-def some_contract():
-	owner = Variable()
+owner = Variable()
 ```
 
 This translates into:
@@ -100,10 +100,10 @@ Driver is pulled from the Runtime (`rt`) module when the contract is being execu
 
 #### set(self, value)
 
+some_contract
 ```python
-def some_contract():
-	owner = Variable()
-	owner.set('stu')
+    owner = Variable()
+    owner.set('stu')
 ```
 
 Executes on contract runtime and sets the value for this variable. The above code causes the following key/value pair to be written into the state.
@@ -125,12 +125,13 @@ owner
 ```
 
 #### get(self)
-```python
-def some_contract():
-	owner = Variable()
-	owner.set('stu')
 
-	owner.get() == 'stu' # True
+some_contract
+```python
+owner = Variable()
+owner.set('stu')
+
+owner.get() == 'stu' # True
 ```
 
 Returns the value that is stored at this Variable's state location.
@@ -178,25 +179,25 @@ class Hash(Datum):
 
 Similar to Variable's \_\_init\_\_ except that a different keyword argument `default_value` allows you to set a value to return when the key does not exist. This is good for ledgers or applications where you need to have a base value.
 
+some_contract
 ```python
-def some_contract():
-	balances = Hash(default_value=0)
-	balances['stu'] = 1_000_000
+balances = Hash(default_value=0)
+balances['stu'] = 1_000_000
 
-	balances['stu'] == 1_000_000 # True
-	balances['raghu'] == 0 # True
+balances['stu'] == 1_000_000 # True
+balances['raghu'] == 0 # True
 ```
 
 #### set(self, key, value)
 
 Equivalent to Variable's `get` but accepts an additional argument to specify the key. For example, the following code executed would result in the following state space.
 
+some_contract
 ```python
-def some_contract():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set('raghu', 100)
-	balances.set('tejas', 777)
+balances = Hash(default_value=0)
+balances.set('stu', 1_000_000)
+balances.set('raghu', 100)
+balances.set('tejas', 777)
 ```
 
 | Key                           | Value     |
@@ -209,13 +210,13 @@ def some_contract():
 
 You can provide an arbitrary number of keys (up to 16) to `set` and it will react accordingly, writing data to the dimension of keys that you provided. For example:
 
+subaccounts
 ```python
-def subaccounts():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set(('stu', 'raghu'), 1_000)
-	balances.set(('raghu', 'stu'), 555)
-	balances.set(('stu', 'raghu', 'tejas'), 777)
+balances = Hash(default_value=0)
+balances.set('stu', 1_000_000)
+balances.set(('stu', 'raghu'), 1_000)
+balances.set(('raghu', 'stu'), 555)
+balances.set(('stu', 'raghu', 'tejas'), 777)
 ```
 
 This will create the following state space:
@@ -231,16 +232,16 @@ This will create the following state space:
 
 Inverse of `set`, where the value for a provided key is returned. If it is `None`, it will set it to the `default_value` provided on initialization.
 
+some_contract
 ```python
-def some_contract():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set('raghu', 100)
-	balances.set('tejas', 777)
+balances = Hash(default_value=0)
+balances.set('stu', 1_000_000)
+balances.set('raghu', 100)
+balances.set('tejas', 777)
 
-	balances.get('stu') == 1_000_000 # True
-	balances.get('raghu') == 100 # True
-	balances.get('tejas') == 777 # True
+balances.get('stu') == 1_000_000 # True
+balances.get('raghu') == 100 # True
+balances.get('tejas') == 777 # True
 ```
 
 The same caveat applies here 
@@ -248,20 +249,20 @@ The same caveat applies here
 #### Multihashes
 Just like `set`, you retrieve data stored in multihashes by providing the list of keys used to write data to that location. Just like `get` with a single key, the default value will be returned if no value at the storage location is found.
 
+subaccounts
 ```python
-def subaccounts():
-	balances = Hash(default_value=0)
-	balances.set('stu', 1_000_000)
-	balances.set(('stu', 'raghu'), 1_000)
-	balances.set(('raghu', 'stu'), 555)
-	balances.set(('stu', 'raghu', 'tejas'), 777)
+balances = Hash(default_value=0)
+balances.set('stu', 1_000_000)
+balances.set(('stu', 'raghu'), 1_000)
+balances.set(('raghu', 'stu'), 555)
+balances.set(('stu', 'raghu', 'tejas'), 777)
 
-	balances.get('stu') == 1_000_000 # True
-	balances.get(('stu', 'raghu')) == 1_000 # True
-	balances.get(('raghu', 'stu')) == 555 # True
-	balances.get(('stu', 'raghu', 'tejas')) == 777 # True
+balances.get('stu') == 1_000_000 # True
+balances.get(('stu', 'raghu')) == 1_000 # True
+balances.get(('raghu', 'stu')) == 555 # True
+balances.get(('stu', 'raghu', 'tejas')) == 777 # True
 
-	balances.get(('stu', 'raghu', 'tejas', 'steve')) == 0 # True
+balances.get(('stu', 'raghu', 'tejas', 'steve')) == 0 # True
 ```
 
 __NOTE:__ If storage returns a Python object or dictionary, modifications onto that dictionary will __not__ be synced to storage until you set the key to the altered value again. This is vitally important.
@@ -300,13 +301,13 @@ d['complex'] == e['complex'] # True!
 #### \_\_setitem\_\_(self, key, value):
 Equal functionality to `set`, but allows slice notation for convenience. __This is less verbose and the preferred method of setting storage on a Hash.__
 
+subaccounts
 ```python
-def subaccounts():
-	balances = Hash(default_value=0)
-	balances['stu'] = 1_000_000
-	balances['stu', 'raghu'] = 1_000
-	balances['raghu', 'stu'] = 555
-	balances['stu', 'raghu', 'tejas'] = 777
+balances = Hash(default_value=0)
+balances['stu'] = 1_000_000
+balances['stu', 'raghu'] = 1_000
+balances['raghu', 'stu'] = 555
+balances['stu', 'raghu', 'tejas'] = 777
 ```
 
 __NOTE:__ The problem that occurs with Variable's set does not occur with Hashes.
@@ -320,20 +321,20 @@ owner['stu']
 #### \_\_getitem\_\_(self, key):
 Equal functionality to `set`, but allows slice notation for convenience. __This is less verbose and the preferred method of setting storage on a Hash.__
 
+subaccounts
 ```python
-def subaccounts():
-	balances = Hash(default_value=0)
-	balances['stu'] = 1_000_000
-	balances['stu', 'raghu'] = 1_000
-	balances['raghu', 'stu'] = 555
-	balances['stu', 'raghu', 'tejas'] = 777
+balances = Hash(default_value=0)
+balances['stu'] = 1_000_000
+balances['stu', 'raghu'] = 1_000
+balances['raghu', 'stu'] = 555
+balances['stu', 'raghu', 'tejas'] = 777
 
-	balances['stu'] == 1_000_000 # True
-	balances['stu', 'raghu'] == 1_000 # True
-	balances['raghu', 'stu'] == 555 # True
-	balances['stu', 'raghu', 'tejas'] == 777 # True
+balances['stu'] == 1_000_000 # True
+balances['stu', 'raghu'] == 1_000 # True
+balances['raghu', 'stu'] == 555 # True
+balances['stu', 'raghu', 'tejas'] == 777 # True
 
-	balances['stu', 'raghu', 'tejas', 'steve'] == 0 # True
+balances['stu', 'raghu', 'tejas', 'steve'] == 0 # True
 ```
 
 #### all(self, \*args):
