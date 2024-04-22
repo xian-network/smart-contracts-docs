@@ -24,16 +24,15 @@ rc.uses_random_function(environment={
 This function is required to be run once per transaction. If it is not called, the contract will fail. You must seed every contract like so:
 
 ```python
-def random_contract():
-	random.seed()
+random.seed()
 
-	@export
-	def random_one():
-		...
+@export
+def random_one():
+    ...
 
-	@export
-	def random_two():
-		...
+@export
+def random_two():
+    ...
 ```
 
 #### Available functions
