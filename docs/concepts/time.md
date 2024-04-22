@@ -130,19 +130,18 @@ However, if you use the raw `Executor` object, `now` will not be available. Proc
 `now` is a `Datetime` object for when the block that the transaction is in has been submitted to the executors.
 
 ```python
-def expiration_contract():
-	EXPIRATION = datetime.Timedelta(days=5)
-	submission_time = Variable()
+EXPIRATION = datetime.Timedelta(days=5)
+submission_time = Variable()
 
-	@construct
-	def set_submission_time():
-		submission_time.set(now) # Set's variable to when contract was submitted
+@construct
+def set_submission_time():
+    submission_time.set(now) # Set's variable to when contract was submitted
 
-	@export
-	def has_expired():
-		if now - submission_time.get() > EXPIRATION:
-			return True
-		return False
+@export
+def has_expired():
+    if now - submission_time.get() > EXPIRATION:
+        return True
+    return False
 ```
 
 The above contract uses `now` in two distinct ways. First, it captures `now` when the contract is submitted and stored it into the state. Second, it references `now`, which will be the current time on subsequent contract executions, and compares it against the original `Datetime` stored.
