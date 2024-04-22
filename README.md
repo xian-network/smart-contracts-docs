@@ -136,8 +136,10 @@ def get_top_level_signer():
   - [Storage](/docs/quickstart/storage.md)
   - [Submit](/docs/quickstart/submit.md)
   - [Testing](/docs/quickstart/testing.md)
- 
-    
+ - Examples
+  - [Standard Contracts (Tokens..)](https://github.com/xian-network/xian-standard-contracts)
+  - [Dice Game with Tests](https://github.com/xian-network/dice-game)
+
 ## Contributing
 
 We welcome contributions from the community. If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
