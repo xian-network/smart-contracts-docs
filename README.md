@@ -119,12 +119,6 @@ def get_top_level_signer():
 
 - [Installation](/docs/README.md)
 - [Valid Code](/docs/valid-code.md)
-- Quick Start
-  - [Functions](/docs/quickstart/functions.md)
-  - [Import/Submit](/docs/quickstart/import-submit.md)
-  - [Storage](/docs/quickstart/storage.md)
-  - [Submit](/docs/quickstart/submit.md)
-  - [Testing](/docs/quickstart/testing.md)
 - Concepts
   - [Context](/docs/concepts/context.md)
   - [Functions](/docs/concepts/functions.md)
@@ -136,7 +130,14 @@ def get_top_level_signer():
   - [Storage](/docs/concepts/storage.md)
   - [Submission](/docs/concepts/submission.md)
   - [Time](/docs/concepts/time.md)
-
+- Contracting Client
+  - [Functions](/docs/quickstart/functions.md)
+  - [Import/Submit](/docs/quickstart/import-submit.md)
+  - [Storage](/docs/quickstart/storage.md)
+  - [Submit](/docs/quickstart/submit.md)
+  - [Testing](/docs/quickstart/testing.md)
+ 
+    
 ## Contributing
 
 We welcome contributions from the community. If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
