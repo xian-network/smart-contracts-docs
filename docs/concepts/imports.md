@@ -4,29 +4,31 @@ The simplest use-case for imports is wanting to call a function that is an `@exp
 
 __NOTE:__ `from x import y` and starred imports are not supported at this time. Importing a smart contract imports all of the `@export` functions from it and none of the variables.
 
+complex_app
 ```python
-def complex_app():
-	@export
-	def return_1():
-		return 1
+@export
+def return_1():
+    return 1
 
-	@export
-	def return_2():
-		return 2
+@export
+def return_2():
+    return 2
 
-	@export
-	def return_3():
-		return 3
+@export
+def return_3():
+    return 3
+```
 
-def import_example():
-	import complex_app
+import_example
+```python
+import complex_app
 
-	@export
-	def calculate():
-		a = complex_app.return_2()
-		b = complex_app.return_3()
+@export
+def calculate():
+    a = complex_app.return_2()
+    b = complex_app.return_3()
 
-		return a * b
+    return a * b
 ```
 
 Believe it or not, `calculate` will return 6.
@@ -41,38 +43,42 @@ To do this, we have to use the `importlib` in the Contracting standard library.
 
 This function behaves similar to the analogous `importlib` function included in the Python standard library. Calling it will return a module object that has only the `@export` functions available to call and pass arguments to.
 
+token_1
 ```python
-def token_1():
-	balances = Hash()
-	@construct
-	def seed():
-		balances['stu'] = 100
+balances = Hash()
+@construct
+def seed():
+    balances['stu'] = 100
 
-	@export
-	def send(amount, to):
-		assert balances[ctx.caller] >= amount
+@export
+def send(amount, to):
+    assert balances[ctx.caller] >= amount
 
-		balances[ctx.caller] -= amount
-		balances[to] += amount
+    balances[ctx.caller] -= amount
+    balances[to] += amount
+```
 
-def token_2():
-	balances = Hash()
-	@construct
-	def seed():
-		balances['stu'] = 100
+token_2
+```python
+balances = Hash()
+@construct
+def seed():
+    balances['stu'] = 100
 
-	@export
-	def send(amount, to):
-		assert balances[ctx.caller] >= amount
+@export
+def send(amount, to):
+    assert balances[ctx.caller] >= amount
 
-		balances[ctx.caller] -= amount
-		balances[to] += amount
+    balances[ctx.caller] -= amount
+    balances[to] += amount
+```
 
-def exchange():
-	@export
-	def send(token, amount, to):
-		t = importlib.import_module(token)
-		t.send(amount, to)
+exchange
+```python
+@export
+def send(token, amount, to):
+    t = importlib.import_module(token)
+    t.send(amount, to)
 ```
 
 Luckily, both contracts have the same interface and have a function called `send` which takes two arguments. How can you tell if this is not the case?
@@ -81,19 +87,19 @@ Luckily, both contracts have the same interface and have a function called `send
 
 A smart contract can define an interface to enforce contracts against. Enforcement can be on the functions and/or the variables. Enforcement is 'weak' in the sense that a contract can have additional functions or variables and still succeed an interface test.
 
+exchange
 ```python
-def exchange():
-	token_interface = [
-		importlib.Func('send', args=('amount', 'to')),
-		importlib.Var('balances', Hash)
-	]
+token_interface = [
+    importlib.Func('send', args=('amount', 'to')),
+    importlib.Var('balances', Hash)
+]
 
-	@export
-	def send(token, amount, to):
-		t = importlib.import_module(token)
-		assert importlib.enforce_interface(t, token_interface)
+@export
+def send(token, amount, to):
+     t = importlib.import_module(token)
+     assert importlib.enforce_interface(t, token_interface)
 
-		t.send(amount, to)
+     t.send(amount, to)
 ```
 
 #### importlib.enforce_interface(module, interface)
@@ -128,6 +134,8 @@ def invalid_contract():
 	def something(): # Correct name, but exported
 		return 123
 ```
+
+
 ```python
 interface_2 = [
 	importlib.Func('func', args=('a', 'b', 'c'))
@@ -146,6 +154,7 @@ def invalid_contract():
 	def not_func(a, b, c): # Exported and correct keyword args but not the right name
 		return a + b + c
 ```
+
 ```python
 interface_3 = [
 	importlib.Var('balances', Hash),
