@@ -4,7 +4,7 @@ You have to define at least one `@export` decorated function in your smart contr
 ```python
 @export
 def hello():
-	return 1
+     return 1
 ```
 
 This is probably one of the simplest contracts you can write. As long as there is a single `@export` function, you're good to go.
@@ -15,10 +15,10 @@ Private functions are just functions without any decorators on them. They can be
 ```python
 @export
 def hello():
-	return there()
+    return there()
 
 def there():
-	return 1
+    return 1
 ```
 
 ## @construct
@@ -29,11 +29,11 @@ owner = Variable()
 
 @construct
 def seed():
-	owner.set('stu')
+    owner.set('stu')
 
 @export
 def get_owner():
-	return owner.get()
+    return owner.get()
 ```
 
 The `seed` function will execute when the contract is submitted, but never again. Thus, the initial state is such that `owner` is set to `stu`. Because there are no other functions to change this variable in storage, this will stay static.
@@ -47,16 +47,16 @@ allowed = Variable()
 
 @construct
 def seed(initial_owner, intial_allowed):
-	owner.set(initial_owner)
-	allowed.set(intial_allowed)
+    owner.set(initial_owner)
+    allowed.set(intial_allowed)
 
 @export
 def get_owner():
-	return owner.get()
+    return owner.get()
 
 @export
 def get_allowed():
-	return allowed.get()
+    return allowed.get()
 ```
 
 Now when you submit the contract, you can specify the initial arguments and they will be set dynamically on submission. If you use the client, it would look something like this.
