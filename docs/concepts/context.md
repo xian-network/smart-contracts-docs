@@ -16,18 +16,20 @@ There are four types of `ctx` variables.
 
 This is the most complex Context variable, but also the most useful. The ctx.caller is the same as the transaction signer (ctx.signer) at the beginning of execution. If the smart contract that is initially invoked calls a function on another smart contract, the ctx.caller then changes to the name of the smart contract calling that function, and so on and so forth until the end of the execution.
 
+direct
 ```python
-def direct():
-	@export
-	def who_am_i():
-		return ctx.caller
+@export
+def who_am_i():
+    return ctx.caller
+```
 
-def indirect():
-	import direct
+indirect
+```python
+import direct
 
-	@export
-	def call_direct():
-		return direct.who_am_i()
+@export
+def call_direct():
+    return direct.who_am_i()
 ```
 
 Assume the two contracts above exist in state space. If `stu` calls `who_am_i` on the `direct` contract, `stu` will be returned because `direct` does not call any functions in any other smart contracts.
@@ -36,29 +38,31 @@ However, if `stu` calls `call_direct` on the `indirect` contract, `indirect` wil
 
 A good example of how to use this would be in a token contract.
 
+token
 ```python
-def token():
-	balances = Hash()
-	@construct
-	def seed():
-		balances['stu'] = 100
-		balances['contract'] = 99
+balances = Hash()
+@construct
+def seed():
+    balances['stu'] = 100
+    balances['contract'] = 99
 
-	@export
-	def send(amount, to):
-		assert balances[ctx.caller] >= amount
+@export
+def send(amount, to):
+    assert balances[ctx.caller] >= amount
 
-		balances[ctx.caller] -= amount
-		balances[to] += amount
+    balances[ctx.caller] -= amount
+    balances[to] += amount
+```
 
-def contract():
-	import token
+contract
+```python
+import token
 
-	@export
-	def withdraw(amount):
-		assert ctx.caller == 'stu'
+@export
+def withdraw(amount):
+    assert ctx.caller == 'stu'
 
-		token.send(amount, ctx.caller)
+    token.send(amount, ctx.caller)
 ```
 
 In the above setup, `stu` has 100 tokens directly on the `token` contract. He can send them, because his account balance is looked up based on the `ctx.caller` when the send function is called.
@@ -69,42 +73,46 @@ Similarly, `contract` also has 99 tokens. When `contract` imports `token` and ca
 
 This is a very simple reference to the name of the smart contract. Use cases are generally when you need to identify a smart contract itself when doing some sort of transaction, such as sending payment through an account managed by the smart contract but residing in another smart contract.
 
+registrar
 ```python
-def registrar():
-	names = Hash()
+names = Hash()
 
-	@export
-	def register(name, value):
-		if names[name] is None:
-			names[name] = value
+@export
+def register(name, value):
+    if names[name] is None:
+        names[name] = value
+```
 
-def controller():
-	import registrar
+controller
+```python
+import registrar
 
-	@export
-	def register(value):
-		registrar.register(ctx.this, value)
+@export
+def register(value):
+    registrar.register(ctx.this, value)
 ```
 
 ### ctx.signer
 
 This is the absolute signer of the transaction regardless of where the code is being executed in the call stack. This is good for creating blacklists of users from a particular contract.
 
+blacklist
 ```python
-def blacklist():
-	not_allowed = ['stu', 'tejas']
+not_allowed = ['stu', 'tejas']
 
-	@export
-	def some_func():
-		assert ctx.signer not in not_allowed
-		return 'You are not blacklisted!'
+@export
+def some_func():
+    assert ctx.signer not in not_allowed
+    return 'You are not blacklisted!'
+```
 
-def indirect():
-	import blacklist
-	
-	@export
-	def try_to_bypass():
-		return blacklist.some_func()
+indirect
+```python
+import blacklist
+
+@export
+def try_to_bypass():
+    return blacklist.some_func()
 ```
 
 In the case that `stu` calls the `try_to_bypass` function on `indirect`, the transaction will still fail because `ctx.signer` is used for gating instead of `ctx.caller`.
@@ -115,11 +123,11 @@ __NOTE__: Never use `ctx.signer` for account creation or identity. Only use it f
 
 On submission, you can specify the owner of a smart contract. This means that only the owner can call the `@export` functions on it. This is for advanced contract pattern types where a single controller is desired for many 'sub-contracts'. Using `ctx.owner` inside of a smart contract can only be used to change the ownership of the contract itself. Be careful with this method!
 
+ownable
 ```python
-def ownable():
-	@export
-	def change_ownership(new_owner):
-		ctx.owner = new_owner
+@export
+def change_ownership(new_owner):
+    ctx.owner = new_owner
 ```
 
 The above contract is not callable unless the `ctx.caller` is the `ctx.owner`. Therefore, you do not need to do additional checks to make sure that this is the case.
