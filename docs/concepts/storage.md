@@ -359,24 +359,6 @@ balances.all('raghu')
 >> [777, 10000, 100000]
 ```
 
-#### as_dict(self, \*args):
-
-Returns all keys and values of the first dimension as a dict. Assume the following state space:
-
-| Key                              | Value     |
-|----------------------------------|-----------|
-| `subaccounts.balances:stu`       | 1,000,000 |
-| `subaccounts.balances:stu:raghu` | 1,000     |
-| `subaccounts.balances:stu:tejas` | 555       |
-| `subaccounts.balances:raghu`     | 777       |
-| `subaccounts.balances:raghu:stu` | 10,000    |
-| `subaccounts.balances:raghu:tejas` | 100,000  |
-
-
-```python
-balances.as_dict()
->> {"stu": 1000000, "raghu": 777}
-```
 
 #### clear(self, \*args)
 
