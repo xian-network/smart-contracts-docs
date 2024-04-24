@@ -4,7 +4,7 @@ The simplest use-case for imports is wanting to call a function that is an `@exp
 
 __NOTE:__ `from x import y` and starred imports are not supported at this time. Importing a smart contract imports all of the `@export` functions from it and none of the variables.
 
-complex_app
+complex_app.py
 ```python
 @export
 def return_1():
@@ -19,7 +19,7 @@ def return_3():
     return 3
 ```
 
-import_example
+import_example.py
 ```python
 import complex_app
 
@@ -43,7 +43,7 @@ To do this, we have to use the `importlib` in the Contracting standard library.
 
 This function behaves similar to the analogous `importlib` function included in the Python standard library. Calling it will return a module object that has only the `@export` functions available to call and pass arguments to.
 
-token_1
+token_1.py
 ```python
 balances = Hash()
 @construct
@@ -58,7 +58,7 @@ def send(amount, to):
     balances[to] += amount
 ```
 
-token_2
+token_2.py
 ```python
 balances = Hash()
 @construct
@@ -73,7 +73,7 @@ def send(amount, to):
     balances[to] += amount
 ```
 
-exchange
+exchange.py
 ```python
 @export
 def send(token, amount, to):
@@ -87,7 +87,7 @@ Luckily, both contracts have the same interface and have a function called `send
 
 A smart contract can define an interface to enforce contracts against. Enforcement can be on the functions and/or the variables. Enforcement is 'weak' in the sense that a contract can have additional functions or variables and still succeed an interface test.
 
-exchange
+exchange.py
 ```python
 token_interface = [
     importlib.Func('send', args=('amount', 'to')),
@@ -118,21 +118,21 @@ A variable definition for the name, a string, and the type, which is either Vari
 
 ```python
 interface_1 = [
-	importlib.Func('something', private=True)
+    importlib.Func('something', private=True)
 ]
 
 def valid_contract():
-	def something(): # Correct name and private
-		return 123
+    def something(): # Correct name and private
+        return 123
 
-	@export
-	def something_else():
-		return 456
+    @export
+    def something_else():
+        return 456
 
 def invalid_contract():
-	@export
-	def something(): # Correct name, but exported
-		return 123
+    @export
+    def something(): # Correct name, but exported
+        return 123
 ```
 
 
@@ -142,17 +142,17 @@ interface_2 = [
 ]
 
 def valid_contract():
-	@export
-	def func(a, b, c): # Exported function with same name and args in correct order
-		return a + b + c
+    @export
+    def func(a, b, c): # Exported function with same name and args in correct order
+        return a + b + c
 
 def invalid_contract():
-	def func(a, c, b): # Correct name, but private, and keyword arguments are out of order
-		return a + b + c
+    def func(a, c, b): # Correct name, but private, and keyword arguments are out of order
+        return a + b + c
 
-	@export
-	def not_func(a, b, c): # Exported and correct keyword args but not the right name
-		return a + b + c
+    @export
+    def not_func(a, b, c): # Exported and correct keyword args but not the right name
+        return a + b + c
 ```
 
 ```python
@@ -162,14 +162,14 @@ interface_3 = [
 ]
 
 def valid_contract():
-	balances = Hash()
-	owner = Variable()
+    balances = Hash()
+    owner = Variable()
 
 def invalid_contract():
-	balances = Variable() # Incorrect types
-	owner = Hash()
+    balances = Variable() # Incorrect types
+    owner = Hash()
 
 def invalid_contract_2():
-	bbb = Variable() # Correct types, but misspelled.
-	ooo = Hash()
+    bbb = Variable() # Correct types, but misspelled.
+    ooo = Hash()
 ```
