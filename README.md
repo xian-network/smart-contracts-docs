@@ -117,7 +117,6 @@ def get_top_level_signer():
 
 ## Documentation
 
-- [Installation](/docs/README.md)
 - [Valid Code](/docs/valid-code.md)
 - Concepts
   - [Context](/docs/concepts/context.md)
