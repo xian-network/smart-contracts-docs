@@ -4,7 +4,7 @@ The simplest use-case for imports is wanting to call a function that is an `@exp
 
 __NOTE:__ `from x import y` and starred imports are not supported at this time. Importing a smart contract imports all of the `@export` functions from it and none of the variables.
 
-complex_app.py
+complex_app.py (Smart Contract)
 ```python
 @export
 def return_1():
@@ -19,7 +19,7 @@ def return_3():
     return 3
 ```
 
-import_example.py
+import_example.py (Smart Contract)
 ```python
 import complex_app
 
@@ -43,7 +43,7 @@ To do this, we have to use the `importlib` in the Contracting standard library.
 
 This function behaves similar to the analogous `importlib` function included in the Python standard library. Calling it will return a module object that has only the `@export` functions available to call and pass arguments to.
 
-token_1.py
+token_1.py (Smart Contract)
 ```python
 balances = Hash()
 @construct
@@ -58,7 +58,7 @@ def send(amount, to):
     balances[to] += amount
 ```
 
-token_2.py
+token_2.py (Smart Contract)
 ```python
 balances = Hash()
 @construct
@@ -73,7 +73,7 @@ def send(amount, to):
     balances[to] += amount
 ```
 
-exchange.py
+exchange.py (Smart Contract)
 ```python
 @export
 def send(token, amount, to):
@@ -87,7 +87,7 @@ Luckily, both contracts have the same interface and have a function called `send
 
 A smart contract can define an interface to enforce contracts against. Enforcement can be on the functions and/or the variables. Enforcement is 'weak' in the sense that a contract can have additional functions or variables and still succeed an interface test.
 
-exchange.py
+exchange.py (Smart Contract)
 ```python
 token_interface = [
     importlib.Func('send', args=('amount', 'to')),
