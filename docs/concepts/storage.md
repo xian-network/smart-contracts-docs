@@ -86,7 +86,7 @@ class Variable(Datum):
 #### \_\_init\_\_(self, contract, name, driver, t)
 The \_\_init\_\_ arguments are automatically filled in for you during compilation and runtime. You do not have to provide any of them.
 
-some_contract
+some_contract.py
 ```python
 owner = Variable()
 ```
@@ -100,7 +100,7 @@ Driver is pulled from the Runtime (`rt`) module when the contract is being execu
 
 #### set(self, value)
 
-some_contract
+some_contract.py
 ```python
     owner = Variable()
     owner.set('stu')
@@ -108,9 +108,9 @@ some_contract
 
 Executes on contract runtime and sets the value for this variable. The above code causes the following key/value pair to be written into the state.
 
-Key	|	Value
--	| -
-some_contract.owner | stu
+| Key               | Value |
+|-------------------|-------|
+| some_contract.owner | stu   |
 
 __NOTE:__ You have to use the `set` method to alter data. If you use standard `=`, it will just cause the object to be set to whatever you pass.
 
@@ -126,7 +126,7 @@ owner
 
 #### get(self)
 
-some_contract
+some_contract.py
 ```python
 owner = Variable()
 owner.set('stu')
@@ -179,7 +179,7 @@ class Hash(Datum):
 
 Similar to Variable's \_\_init\_\_ except that a different keyword argument `default_value` allows you to set a value to return when the key does not exist. This is good for ledgers or applications where you need to have a base value.
 
-some_contract
+some_contract.py
 ```python
 balances = Hash(default_value=0)
 balances['stu'] = 1_000_000
@@ -192,7 +192,7 @@ balances['raghu'] == 0 # True
 
 Equivalent to Variable's `get` but accepts an additional argument to specify the key. For example, the following code executed would result in the following state space.
 
-some_contract
+some_contract.py
 ```python
 balances = Hash(default_value=0)
 balances.set('stu', 1_000_000)
@@ -210,7 +210,7 @@ balances.set('tejas', 777)
 
 You can provide an arbitrary number of keys (up to 16) to `set` and it will react accordingly, writing data to the dimension of keys that you provided. For example:
 
-subaccounts
+subaccounts.py
 ```python
 balances = Hash(default_value=0)
 balances.set('stu', 1_000_000)
@@ -232,7 +232,7 @@ This will create the following state space:
 
 Inverse of `set`, where the value for a provided key is returned. If it is `None`, it will set it to the `default_value` provided on initialization.
 
-some_contract
+some_contract.py
 ```python
 balances = Hash(default_value=0)
 balances.set('stu', 1_000_000)
@@ -249,7 +249,7 @@ The same caveat applies here
 #### Multihashes
 Just like `set`, you retrieve data stored in multihashes by providing the list of keys used to write data to that location. Just like `get` with a single key, the default value will be returned if no value at the storage location is found.
 
-subaccounts
+subaccounts.py
 ```python
 balances = Hash(default_value=0)
 balances.set('stu', 1_000_000)
@@ -301,7 +301,7 @@ d['complex'] == e['complex'] # True!
 #### \_\_setitem\_\_(self, key, value):
 Equal functionality to `set`, but allows slice notation for convenience. __This is less verbose and the preferred method of setting storage on a Hash.__
 
-subaccounts
+subaccounts.py
 ```python
 balances = Hash(default_value=0)
 balances['stu'] = 1_000_000
@@ -321,7 +321,7 @@ owner['stu']
 #### \_\_getitem\_\_(self, key):
 Equal functionality to `set`, but allows slice notation for convenience. __This is less verbose and the preferred method of setting storage on a Hash.__
 
-subaccounts
+subaccounts.py
 ```python
 balances = Hash(default_value=0)
 balances['stu'] = 1_000_000
