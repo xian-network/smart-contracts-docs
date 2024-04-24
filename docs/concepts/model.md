@@ -55,12 +55,12 @@ The above method uses the raw executor instead of the `ContractingClient` used i
 Metering is set to false so that the executor does not use any stamps when executing this function. This is preferable in development environments.
 
 ### Step 1: Submit Transaction
-<center><img src='/img/import.png' width=75%></center>
+<center><img src='/docs/img/import.png' width=75%></center>
 
 Executor retrieves the module for the smart contract if it exists.
 
 ### Step 2: Execution
-<center><img src='/img/execute.png' width=75%></center>
+<center><img src='/docs/img/execute.png' width=75%></center>
 
 The executor attempts to execute a function on the smart contract. If it fails due to Python errors or invalid inputs, the executor will get a response. Otherwise, the function is called and the results of the execution are returned to the executor and which can be passed to the operator.
 
