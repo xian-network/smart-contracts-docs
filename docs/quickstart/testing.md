@@ -43,7 +43,7 @@ class TestSmartContract(TestCase):
         self.c = ContractingClient()
         self.c.flush_cache()
 
-        with open('../contracts/contract.py') as f:
+        with open('contract.py') as f:
             code = f.read()
             self.c.submit(code, name='test_me')
 
