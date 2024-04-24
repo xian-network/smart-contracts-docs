@@ -35,8 +35,8 @@ from contracting.execution.executor import Executor
 
 contract_code = '''
 @export
-	def ping(pong):
-		return pong
+    def ping(pong):
+        return pong
 '''
 
 e = Executor(metering=False)
