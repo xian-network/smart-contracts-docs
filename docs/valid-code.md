@@ -108,39 +108,24 @@ Here is a list of most Python3.11 builtin functions versus the ones we allow in 
 
 Similarly, some of the AST (abstract syntax tree) nodes that make up deeper levels of the Python syntax are not allowed. Mainly, the nodes around the async/await features are restricted.
 
-AST Node | Reason for Restriction
-
-[ast.AsyncFor](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#AsyncFor) | All async code is invalid in Contracting.
-
-[ast.AsyncFunctionDef](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#AsyncFunctionDef) | All async code is invalid in Contracting.
-
-[ast.AsyncWith](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#AsyncWith) | All async code is invalid in Contracting.
-
-ast.AugLoad | AST Node never used in current CPython implementation.
-
-ast.AugStore | AST Node never used in current CPython implementation.
-
-[ast.Await](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Await) | All async code is invalid in Contracting.
-
-[ast.ClassDef](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#ClassDef) | Classes are disabled in Contracting.
-
-[ast.Ellipsis](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Ellipsis) | Ellipsis should not be defined in a smart contract. They may be an effect of one.
-
-[ast.GeneratorExp](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#GeneratorExp) | Generators hold state that is incompatible with Contracting's model.
-
-[ast.Global](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Global) | Scope modification could have security implications.
-
-ast.Interactive | Only available in Python interpreters. Potential security risk.
-
-[ast.MatMult](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#MatMult) | New AST feature. Not yet widely adopted. Potential security risk.
-
-[ast.Nonlocal](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Nonlocal) | Scope modification could have security implications.
-
-ast.Suite | Similar to ast.Interactive
-
-[ast.Yield](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Yield) | Generator related code is not compatible with Contracting.
-
-[ast.YieldFrom](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#YieldFrom) | Generator related code is not compatible with Contracting.
+| AST Node | Reason for Restriction |
+|----------|------------------------|
+| [ast.AsyncFor](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#AsyncFor) | All async code is invalid in Contracting. |
+| [ast.AsyncFunctionDef](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#AsyncFunctionDef) | All async code is invalid in Contracting. |
+| [ast.AsyncWith](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#AsyncWith) | All async code is invalid in Contracting. |
+| ast.AugLoad | AST Node never used in current CPython implementation. |
+| ast.AugStore | AST Node never used in current CPython implementation. |
+| [ast.Await](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Await) | All async code is invalid in Contracting. |
+| [ast.ClassDef](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#ClassDef) | Classes are disabled in Contracting. |
+| [ast.Ellipsis](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Ellipsis) | Ellipsis should not be defined in a smart contract. They may be an effect of one. |
+| [ast.GeneratorExp](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#GeneratorExp) | Generators hold state that is incompatible with Contracting's model. |
+| [ast.Global](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Global) | Scope modification could have security implications. |
+| ast.Interactive | Only available in Python interpreters. Potential security risk. |
+| [ast.MatMult](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#MatMult) | New AST feature. Not yet widely adopted. Potential security risk. |
+| [ast.Nonlocal](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Nonlocal) | Scope modification could have security implications. |
+| ast.Suite | Similar to ast.Interactive |
+| [ast.Yield](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#Yield) | Generator related code is not compatible with Contracting. |
+| [ast.YieldFrom](https://greentreesnakes.readthedocs.io/en/latest/nodes.html#YieldFrom) | Generator related code is not compatible with Contracting. |
 
 ### Violations
 
