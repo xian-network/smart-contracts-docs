@@ -12,7 +12,7 @@ As smart contracts get more and more complex, you need to be able to test them t
 
 We can write a simple smart contract and test to make sure it works.
 
-contract.py
+contract.py (Smart Contract)
 ```python
 @export
 def call_this(a):
