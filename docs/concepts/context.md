@@ -10,6 +10,7 @@ There are four types of `ctx` variables.
 | `ctx.this`  | The identity of the smart contract where this variable is used.    | Constant. Never changed. Use for giving smart contracts rights and accounts.                                                                                    |
 | `ctx.signer` | The top-level signer of the transaction. This is constant throughout the transaction's execution |                                                                                                                                       |
 | `ctx.owner`  | The owner of the contract, which is an optional field that can be set on time of submission. | If this field is set, only the `ctx.owner` can call any of the functions on the smart contract. This allows for a parent-child model. |
+| `ctx.entry`  | The entry function and contract. |                                                                                                                                       |
 
 
 ### ctx.caller
