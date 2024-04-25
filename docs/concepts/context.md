@@ -143,7 +143,7 @@ contract.py (Smart Contract)
 ```python
 @export
 def function():
-    return ctx.entry  # Output when someone used other_contract: ("contract","function")
+    return ctx.entry  # Output when someone used other_contract: ("other_contract","call_contract")
 ```
 
 other_contract.py (Smart Contract)
