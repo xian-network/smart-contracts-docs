@@ -59,31 +59,4 @@ def get_allowed():
     return allowed.get()
 ```
 
-Now when you submit the contract, you can specify the initial arguments and they will be set dynamically on submission. If you use the client, it would look something like this.
-
-```python
-from contracting.client import ContractingClient
-
-def example():
-	owner = Variable()
-	allowed = Variable()
-
-	@construct
-	def seed(initial_owner, intial_allowed):
-		owner.set(initial_owner)
-		allowed.set(intial_allowed)
-
-	@export
-	def get_owner():
-		return owner.get()
-
-	@export
-	def get_allowed():
-		return allowed.get()
-
-client = ContractingClient()
-client.submit(example, constructor_args={
-	'initial_owner': 'stu',
-	'initial_allowed': 'raghu'
-	})
-```
+Now when you submit the contract, you can specify the initial arguments and they will be set dynamically on submission.
