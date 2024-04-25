@@ -11,7 +11,6 @@ There are five types of `ctx` variables.
 | `ctx.signer` | The top-level signer of the transaction. This is constant throughout the transaction's execution |                                                                                                                                       |
 | `ctx.owner`  | The owner of the contract, which is an optional field that can be set on time of submission. | If this field is set, only the `ctx.owner` can call any of the functions on the smart contract. This allows for a parent-child model. |
 | `ctx.entry`  | The entry function and contract as a tuple. |                                                                                                                                       |
-| `ctx.submission_name`  |  |    
 
 ### ctx.caller
 
@@ -137,16 +136,21 @@ The above contract is not callable unless the `ctx.caller` is the `ctx.owner`. T
 
 When someone calls a contract through another contract, you might want to know what contract and function it was that called it in the first place.
 
+`ctx.entry` returns a tuple containing the name of the contract and the function that was called.
+
+### Example:
+
 contract.py (Smart Contract)
 ```python
 @export
 def function():
-    return ctx.entry // Output when someone used other_contract ("other_contract","call_contract")
+    return ctx.entry  # Output when someone used other_contract: ("contract","function")
 ```
 
 other_contract.py (Smart Contract)
 ```python
 import contract
+
 @export
 def call_contract():
     contract.function()
