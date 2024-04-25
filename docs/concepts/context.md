@@ -132,13 +132,11 @@ def change_ownership(new_owner):
 
 The above contract is not callable unless the `ctx.caller` is the `ctx.owner`. Therefore, you do not need to do additional checks to make sure that this is the case.
 
-## `ctx.entry`
+### `ctx.entry`
 
 When someone calls a contract through another contract, you might want to know what contract and function it was that called it in the first place.
 
 `ctx.entry` returns a tuple containing the name of the contract and the function that was called.
-
-### Example:
 
 contract.py (Smart Contract)
 ```python
