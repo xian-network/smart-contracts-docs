@@ -102,8 +102,8 @@ Driver is pulled from the Runtime (`rt`) module when the contract is being execu
 
 some_contract.py (Smart Contract)
 ```python
-    owner = Variable()
-    owner.set('stu')
+owner = Variable()
+owner.set('stu')
 ```
 
 Executes on contract runtime and sets the value for this variable. The above code causes the following key/value pair to be written into the state.
