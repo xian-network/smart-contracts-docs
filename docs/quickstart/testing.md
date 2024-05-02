@@ -41,7 +41,7 @@ from contracting.client import ContractingClient
 class TestSmartContract(TestCase):
     def setUp(self):
         self.c = ContractingClient()
-        self.c.flush_cache()
+        self.c.flush()
 
         with open('contract.py') as f:
             code = f.read()
@@ -50,7 +50,10 @@ class TestSmartContract(TestCase):
         self.test_me = self.c.get_contract('test_me')
 
     def tearDown(self):
-        self.c.flush_cache()
+        self.c.flush()
+
+if __name__ == '__main__':
+    unittest.main()
 ```
 
 Key things that are happening:
