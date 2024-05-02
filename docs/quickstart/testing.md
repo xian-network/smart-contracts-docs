@@ -49,6 +49,9 @@ class TestSmartContract(TestCase):
 
         self.test_me = self.c.get_contract('test_me')
 
+   def test_a_over_50_returns_quack(self):
+        pass
+
     def tearDown(self):
         self.c.flush()
 
