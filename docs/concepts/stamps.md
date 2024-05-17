@@ -12,7 +12,7 @@ If all of the stamps are deducted before the transaction is done, the transactio
 
 ## Opcode Cost Chart
 
-Details on Python Opcodes from the `dis` module documentation [here](https://docs.python.org/3/library/dis.html). CPython Opcode definitions [here]([https://github.com/python/cpython/blob/master/Include/opcode.h](https://github.com/python/cpython/blob/3.11/Include/opcode.h)).
+Details on Python Opcodes from the `dis` module documentation [here](https://docs.python.org/3/library/dis.html). CPython Opcode definitions [here](https://github.com/python/cpython/blob/3.11/Include/opcode.h).
 
 Not all opcodes in this list may ever be encountered in valid Contracting code.
 
