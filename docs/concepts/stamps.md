@@ -89,7 +89,7 @@ Not all opcodes in this list may ever be encountered in valid Contracting code.
 |COPY                                        |120|2   |2         |4          |
 |BINARY_OP                                   |122|2   |2         |4          |
 |SEND                                        |123|3   |2         |6          |
-|LOAD_FAST                                   |124|1   |2         |2          |
+|LOAD_FAST                                   |124|16  |2         |32          |
 |STORE_FAST                                  |125|1   |2         |2          |
 |DELETE_FAST                                 |126|1   |2         |2          |
 |POP_JUMP_FORWARD_IF_NOT_NONE                |128|2   |2         |4          |
