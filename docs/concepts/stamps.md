@@ -60,7 +60,7 @@ Not all opcodes in this list may ever be encountered in valid Contracting code.
 |STORE_NAME                                  |90 |1   |2         |2          |
 |DELETE_NAME                                 |91 |1   |2         |2          |
 |UNPACK_SEQUENCE                             |92 |1   |2         |2          |
-|FOR_ITER                                    |93 |4   |2         |8          |
+|FOR_ITER                                    |93 |128 |2         |256        |
 |UNPACK_EX                                   |94 |4   |2         |8          |
 |STORE_ATTR                                  |95 |3   |2         |6          |
 |DELETE_ATTR                                 |96 |3   |2         |6          |
