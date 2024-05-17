@@ -225,6 +225,6 @@ Not all opcodes in this list may ever be encountered in valid Contracting code.
 |NB_INPLACE_FLOOR_DIVIDE                     |15 |2   |2         |4          |
 |NB_INPLACE_REMAINDER                        |19 |2   |2         |4          |
 |NB_INPLACE_POWER                            |21 |2   |2         |4          |
-|NB_MATRIX_MULTIPLY                          |17 |2   |2         |4          |
+|NB_MATRIX_MULTIPLY                          |4  |2   |2         |4          |
 |NB_INPLACE_MATRIX_MULTIPLY                  |17 |2   |2         |4          |
 
