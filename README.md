@@ -122,6 +122,7 @@ def get_top_level_signer():
   - [Context](/docs/concepts/context.md)
   - [Functions](/docs/concepts/functions.md)
   - [Hashing](/docs/concepts/hashing.md)
+  - [Crypto](/docs/concepts/crypto.md)
   - [Imports](/docs/concepts/imports.md)
   - [Model](/docs/concepts/model.md)
   - [Randoms](/docs/concepts/randoms.md)
