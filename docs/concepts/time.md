@@ -5,18 +5,18 @@ Every contract has a special `datetime` library available to it that mimicks som
 ### datetime.Datetime
 
 ```python
-d = datetime.Datetime(year, month, day, hour=0, minute=0, microsecond=0)
+d = datetime.datetime(year, month, day, hour=0, minute=0, microsecond=0)
 ```
 
-`Datetime` is a pretty close mapping to the Python Datetime object. It requires the year, month, and day at the very least to initialize. All times are in UTC+0.
+`datetime` is a pretty close mapping to the Python Datetime object. It requires the year, month, and day at the very least to initialize. All times are in UTC+0.
 
 #### Comparisons
 
 A valid `Datetime` comparison takes another `Datetime` on the right side of the comparison. All comparisons return `True` or `False`.
 
 ```python
-d1 = datetime.Datetime(year=2019, month=10, day=10)
-d2 = datetime.Datetime(year=2019, month=10, day=11)
+d1 = datetime.datetime(year=2019, month=10, day=10)
+d2 = datetime.datetime(year=2019, month=10, day=11)
 
 # LESS THAN
 d1 > d2 # False
@@ -40,24 +40,29 @@ _Use addition to add an interval of time to a `Datetime`._
 _Use subtraction to calculate the interval of time between two `Datetime` objects._
 
 ```python
-d = datetime.Datetime(year=2019, month=10, day=10)
-t = datetime.Timedelta(days=1)
+d = datetime.datetime(year=2019, month=10, day=10)
+t = datetime.timedelta(days=1)
 
 # ADDITION
 new_d = d + t # Returns new Datetime
-expected_new_d = Datetime(year=2019, month=10, day=11)
+expected_new_d = datetime.datetime(year=2019, month=10, day=11)
 
 new_d == expected_new_d # True
 
 # SUBTRACTION
-new_t = new_d - d # Returns a Timedelta. Should reverse the above operation
+new_t = new_d - d # Returns a timedelta. Should reverse the above operation
 
 new_t == t # True
+
+# STRING TO DATETIME
+
+date_string = "2019-10-10 10:10:10"
+datetime_from_str = datetime.datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
 ```
-### datetime.Timedelta
+### datetime.timedelta
 
 ```python
-t = datetime.Timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0)
+t = datetime.timedelta(weeks=0, days=0, hours=0, minutes=0, seconds=0)
 ```
 
 `Timedelta` is also a pretty close mapping to Python's own Timedelta object. It represents an interval of time which can be used to determine expiration dates, etc.
@@ -69,8 +74,8 @@ For example, if a transaction occurs on a smart contract 2 weeks after it has be
 Comparisons are between two `Timedelta` objects.
 
 ```python
-t1 = datetime.Timedelta(weeks=1, days=1, hours=2)
-t2 = datetime.Timedelta(weeks=1, days=1, hours=3)
+t1 = datetime.timedelta(weeks=1, days=1, hours=2)
+t2 = datetime.timedelta(weeks=1, days=1, hours=3)
 
 # LESS THAN
 t1 > t2 # False
@@ -92,20 +97,20 @@ t1 != t2 # True
 _While it's technically possible to multiply `Timedelta` objects, it can produce strange results._
 
 ```python
-t1 = datetime.Timedelta(weeks=1)
-t2 = datetime.Timedelta(weeks=2)
+t1 = datetime.timedelta(weeks=1)
+t2 = datetime.timedelta(weeks=2)
 
 t3 = t1 + t2
-t3 == datetime.Timedelta(weeks=3) # True
+t3 == datetime.timedelta(weeks=3) # True
 
 t4 = t2 - t1
-t4 == datetime.Timedelta(weeks=1) # True
+t4 == datetime.timedelta(weeks=1) # True
 
 t5 = t1 * 5
-t5 == datetime.Timedelta(weeks=5) # True
+t5 == datetime.timedelta(weeks=5) # True
 
 t6 = t1 * t2
-t6 == datetime.Timedelta(weeks=14) # True
+t6 == datetime.timedelta(weeks=14) # True
 ```
 
 ### Constants
@@ -113,11 +118,11 @@ t6 == datetime.Timedelta(weeks=14) # True
 The following `Timedelta` constants are available for you to use.
 
 ```python
-datetime.WEEKS   == datetime.Timedelta(weeks=1)   # True
-datetime.DAYS    == datetime.Timedelta(days=1)    # True
-datetime.HOURS   == datetime.Timedelta(hours=1)   # True
-datetime.MINUTES == datetime.Timedelta(minutes=1) # True
-datetime.SECONDS == datetime.Timedelta(seconds=1) # True
+datetime.WEEKS   == datetime.timedelta(weeks=1)   # True
+datetime.DAYS    == datetime.timedelta(days=1)    # True
+datetime.HOURS   == datetime.timedelta(hours=1)   # True
+datetime.MINUTES == datetime.timedelta(minutes=1) # True
+datetime.SECONDS == datetime.timedelta(seconds=1) # True
 ```
 
 ## Now
@@ -130,7 +135,7 @@ However, if you use the raw `Executor` object, `now` will not be available. Proc
 `now` is a `Datetime` object for when the block that the transaction is in has been submitted to the executors.
 
 ```python
-EXPIRATION = datetime.Timedelta(days=5)
+EXPIRATION = datetime.timedelta(days=5)
 submission_time = Variable()
 
 @construct

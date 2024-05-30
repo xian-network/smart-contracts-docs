@@ -17,6 +17,20 @@ Contracting simplifies the process of creating, testing, and deploying smart con
 
 ### Reference Contract
 
+#### A note on builtins
+The following builtins are available in the contracting standard library, and don't need to be explicitly imported.
+- `random`
+- `crypto`
+- `decimal`
+- `hashlib`
+- `datetime`
+- `importlib`
+- `ctx`
+- `Hash`
+- `Variable`
+- `ForeignHash`
+- `ForeignVariable`
+
 ```python
 random.seed() # Seed the random number generator
 
