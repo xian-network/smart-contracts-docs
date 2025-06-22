@@ -190,7 +190,7 @@ balances['raghu'] == 0 # True
 
 #### set(self, key, value)
 
-Equivalent to Variable's `get` but accepts an additional argument to specify the key. For example, the following code executed would result in the following state space.
+Equivalent to Variable's `set` but accepts an additional argument to specify the key. For example, the following code executed would result in the following state space.
 
 some_contract.py (Smart Contract)
 ```python
