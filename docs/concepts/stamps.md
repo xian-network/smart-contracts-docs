@@ -7,7 +7,7 @@ To calculate work, the code is ran through an optimized tracer. Each Python VM o
 If all of the stamps are deducted before the transaction is done, the transaction reverts states and fails. If there are left over stamps from the transaction execution, they are returned to the sender.
 
 ## Read Write Costs
-* Cost to read one byte from state: 3 stamps
+* Cost to read one byte from state: 0 stamps
 * Cost to write one byte to state: 25 stamps
 
 ## Opcode Cost Chart
